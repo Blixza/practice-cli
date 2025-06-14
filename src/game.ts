@@ -12,20 +12,9 @@ let playerName: string;
 const sleep = (ms = 2000) =>
   new Promise((r) => setTimeout(r, ms));
 
-async function runApp() {
-  try {
-    await welcome();
-    await askName();
-    await question1();
-    winner();
-  } catch (error) {
-    console.log(`Error: ${error}`);
-  }
-}
-
 async function welcome() {
   const rainbowTitle = chalkAnimation.rainbow(
-    'Who wants To Be A Javascript Millionaire? \n'
+    'Who wants To Be A Typescript/Javascript Millionaire? \n'
   );
 
   await sleep();
@@ -97,4 +86,17 @@ function winner() {
   });
 }
 
-runApp();
+export async function runApp(options?: {
+  skipWelcome?: boolean;
+}) {
+  try {
+    if (!options?.skipWelcome) {
+      await welcome();
+    }
+    await askName();
+    await question1();
+    winner();
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+}

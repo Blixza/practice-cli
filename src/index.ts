@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import { runApp } from './game.js';
 
 // Declare the program
 
@@ -33,10 +34,7 @@ program
 program
   .command('add <numbers...>')
   .action((numbers: number[]) => {
-    const total = numbers.reduce(
-      (a, b) => a + b,
-      0
-    );
+    const total = numbers.reduce((a, b) => a + b);
     console.log(`Total: ${total}`);
   })
   .description('Add numbers and log the total');
@@ -48,6 +46,17 @@ program
     console.log(`Max: ${max}`);
   })
   .description('Add numbers and log the total');
+
+program
+  .command('play-game')
+  .option(
+    '-s, --skip-welcome',
+    'Skip the welcome animation'
+  )
+  .description('Run the game')
+  .action((options) => {
+    runApp({ skipWelcome: options.skipWelcome });
+  });
 
 // Execute the CLI with the given arguments
 
