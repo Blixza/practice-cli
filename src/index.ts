@@ -58,6 +58,14 @@ program
     runApp({ skipWelcome: options.skipWelcome });
   });
 
+program
+  .command('name <string>')
+  .action((playerName: string) => {
+    if (playerName.length >= 15) {
+      playerName = playerName.substring(0, 15);
+    }
+  })
+  .description('Apply the nickname');
 // Execute the CLI with the given arguments
 
 program.parse(process.argv);
